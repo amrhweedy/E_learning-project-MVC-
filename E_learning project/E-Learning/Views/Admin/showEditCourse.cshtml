@@ -1,0 +1,48 @@
+﻿
+@model E_Learning_Platform.Models.Course
+@{
+    ViewData["Title"] = "Show_Edit_course";
+}
+  <div class="row" style="display:flex; justify-content:center; align-items:center; ">
+        <div class="col-md-4">
+            <form asp-action="Edit_Course" asp-controller="Admin" asp-route-Id="@Model.Id" style="border:solid 1px; padding:15px;border-radius:15px; margin-top:30px;">
+                <h1 style="text-align:center; color:#06BBCC;">Edit Course</h1>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                    <input asp-for="Duration" class="form-control" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                    <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label" style="margin-bottom:10px; margin-top:10px;"></label>
+                <input asp-for="Image" class="form-control" type="file" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:flex; justify-content:center; align-items:center;">
+                <input type="submit" value="Edit" class="btn btn-primary" style="width:75%;margin-top:20px;margin-bottom:20px; border-radius:15px;" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

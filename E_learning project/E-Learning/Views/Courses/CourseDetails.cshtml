@@ -1,0 +1,232 @@
+﻿
+@model CourseViewModel
+<link rel="stylesheet" href="~/css/style/linearicons.css" />
+<link rel="stylesheet" href="~/css/style/magnific-popup.css" />
+<link rel="stylesheet" href="~/css/style/owl.carousel.css" />
+<link rel="stylesheet" href="~/css/style/nice-select.css">
+<link rel="stylesheet" href="~/css/style/hexagons.min.css" />
+<link rel="stylesheet" href="~/css/style/main.css" />
+<link rel="stylesheet" href="~/css/style/color.css" />
+<link rel="stylesheet" href="~/css/style/color-two.css" />
+<link rel="stylesheet" href="~/css/style/color-three.css"/>
+<link rel="stylesheet" href="~/css/style/color-four.css" />
+
+<section>
+    <div class="container">
+        <h1 class="text-center fw-bold m-2 my-4">@Model.Name</h1>
+        <div class="row">
+            <div class="col-lg-8 course-details-left">
+                <div class="main-image">
+                    <img class="img-fluid" src="~/Images/Course/@Model.Image" alt="">
+                </div>
+                <div class="content-wrapper">
+                    <h4 class="title my-3 border-bottom border-primary">Description</h4>
+                    <div class="content">
+                        @Model.Description
+                    </div>
+
+                    <h4 class="title my-3 border-bottom border-primary">Course Outline</h4>
+                    <div class="content">
+                        <ul class="course-list">
+                            @foreach(var lesson in Model.Lessons)
+                            {
+                                <li class="justify-content-between d-flex">
+                                    <p>@lesson.Lesson_Title</p>
+                                    <a class="btn text-uppercase" asp-action="ShowLesson" asp-controller="Lesson" asp-route-id="@lesson.Id">View Details</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <h4 class="title my-3 border-bottom border-primary">Feedbacks</h4>
+                    <div class="content">
+                        @foreach(var feedback in Model.Feedbacks)
+                        {
+                            <div class="wm-postreviews">
+                                <ul>
+                                    <li>
+                                        <div class="thumblist">
+                                            <ul>
+                                                <li>
+                                                    @*<h4><a href="#">@feedback.Student.App_User.UserName</a></h4>*@
+                                                    <figure>
+                                                        <a href="blog-detail.html">
+                                                            @*<img src="~/Feedback/@feedback.Student.Profile_Picture" alt="">*@
+                                                        </a>
+                                                    </figure>
+                                                    <div class="wm-reviews-text">
+                                                        <div class="wm-rating">
+                                                            <span class="rating-box" style="width:100%"> (@feedback.Rating)</span>
+                                                        </div>
+                                                        <div class="star">
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </div>
+                                                        <span>From @feedback.Date.ToShortDateString()</span>
+                                                        <p>@feedback.Comment</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 right-contents">
+                <ul>
+                    <li>
+                        <a class="justify-content-between d-flex" >
+                            <p>Rating</p>
+                            <span class="or">@Model.Rating</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex">
+                            <p>Course Fee </p>
+                            <span>$@Model.Price</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" >
+                            <p>Duration </p>
+                            <span>@Model.Duration hours</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" >
+                            <p>Category </p>
+                            <span>@Model.Category </span>
+                        </a>
+                    </li>
+                </ul>
+                <form method="post" asp-controller="Courses" asp-action="Enroll" >
+                    <input type="hidden" name="courseId" value="@Model.Id" />
+                    <button type="submit" class="btn text-uppercase enroll">Enroll the course</button>
+                </form>
+
+                <h4 class="title my-3">Reviews</h4>
+                <div class="content">
+                    <div class="feedeback" id="add-feedback-form">
+
+                        <form asp-action="AddFeedback" asp-controller="Courses" method="post">
+                            <input type="hidden" name="courseId" value="@Model.Id" />
+                            <h6 class="mb-10">Your Feedback</h6>
+                            <div class="form-group">
+                                <label for="Comment" class="control-label"></label>
+                                <textarea name="Comment" class="form-control" cols="10" rows="10"></textarea>
+                            </div>
+                            <div class="mt-10 text-right">
+                                <button type="submit" class="btn text-center text-uppercase enroll">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    
+                    <div class="comments-area mb-30">
+                        <div class="comment-list">
+                            <div class="single-comment single-reviews justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="~/Images/Instructor/c1.jpg" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5>
+                                            <a href="#">Emilly Blunt</a>
+                                            <div class="star">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-list">
+                            <div class="single-comment single-reviews justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="~/Images/Instructor/c2.jpg" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5>
+                                            <a href="#">Elsie Cunningham</a>
+                                            <div class="star">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-list">
+                            <div class="single-comment single-reviews justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="~/Images/Instructor/c3.jpg" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5>
+                                            <a href="#">Maria Luna</a>
+                                            <div class="star">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/vendor/parallax.min.js"></script>
+<script src="~/js/vendor/owl.carousel.min.js"></script>
+<script src="~/js/vendor/hexagons.min.js"></script>
+<script src="~/js/vendor/waypoints.min.js"></script>
+<script src="~/js/vendor/main.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    @section Scripts
+        {
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#feedback-form').submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddFeedback","Courses")", 
+                    data: formData,
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+    }

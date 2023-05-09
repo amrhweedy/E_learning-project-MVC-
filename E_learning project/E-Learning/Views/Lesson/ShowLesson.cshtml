@@ -1,0 +1,18 @@
+﻿@model LessonViewModel
+<div>
+    <video style="width:100%" controls="controls" autoplay>
+        <source src="~/Lessons/@Model.Content" type="audio/mp4" />
+    </video>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-evenly bg-light p-4 m-3 rounded">
+        <div>
+            <h1 class="fw-bold">Lesson</h1>
+            <div class="mx-2">@Model.Title</div>
+        </div>
+        <div>
+            <h1 class="fw-bold">Duration</h1>
+            <div class="mx-2">@Model.Duration hours</div>
+        </div>
+    </div>
+</div>

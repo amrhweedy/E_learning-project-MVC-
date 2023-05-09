@@ -1,0 +1,43 @@
+﻿@model E_Learning.viewmodel.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1 style="margin:10px auto;width:fit-content " >Login</h1>
+
+
+
+<form asp-action="Login" style="width:400px;margin:auto;   box-shadow: 0 10px 10px rgba(101, 19, 19, 0.2)">
+             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group m-4 ">
+                <input asp-for="UserName" class="form-control p-2 rounded-1 " style="color:black" placeholder="UserName" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group m-4">
+        <input asp-for="Password" class="form-control p-2 rounded-1  " style="color:black" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check m-4 ">
+                <label class="form-check-label">
+                    <input class="form-check-input " asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+          
+            <div class="form-group m-4"  >
+        <input type="submit" value="Log in" class="btn form-control p-2 rounded-1  " style="background-color:var(--primary);color:white;font-weight:bold;font-size:18px" />
+           
+        </div>
+    <p class="m-4 fw-bold text-center" >Don't hava an account?<a asp-action="Register" asp-controller="Account"  > Sign Up</a>  </p> 
+    @*<p class="m-4 fw-bold text-center" >Sign up as Instructor<a asp-action="InstructorRegister" asp-controller="Account"  > Sign Up</a>  </p> *@
+
+        </form>
+   
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

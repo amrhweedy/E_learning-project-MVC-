@@ -1,0 +1,42 @@
+﻿@model List<UserStudentViewModel>
+@{
+    ViewData["Title"] = "allRegisterdStudent";
+}
+
+<h1 style="text-align:center; color:#06BBCC;" >Students</h1>
+
+<div class="stud" style="dispaly:flex; align-item:center; justify-content:center">
+    <div>
+        <table class="table" border=1px solid #222222 style="margin:auto">
+    <thead class="thead-dark">
+    <tr style="color:#06BBCC">
+      <th scope="col">Profile Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      @*<th scope="col">Handle</th>*@
+
+       
+  </thead>
+  <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>
+                            <img src="~/Images/Profile/@student.Profile_Picture" width="100px" height="100px"/>
+                </td>
+                <td>
+                    @student.UserName
+                </td>
+                <td>
+                    @student.Email
+                </td>
+            </tr>
+
+        }
+  </tbody>
+</table></div>
+    
+
+
+
+</div>

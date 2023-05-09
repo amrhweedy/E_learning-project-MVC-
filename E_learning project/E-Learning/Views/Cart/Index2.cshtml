@@ -1,0 +1,130 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.Extensions.Options
+@inject IOptions<E_Learning.ViewModels.StripeViewModel> Stripe
+@model List<E_Learning.ViewModels.StudentCourseViewModel>
+@{
+    long balance=0;
+}
+
+
+<div class="container">
+    <h1 class="py-4">Shopping Cart</h1>
+    <div class="row">
+        <table class="table" style="width:1100px">
+            @foreach (var course in Model)
+            {
+                balance += (long)course.Price;
+                <tr class=" border-top">
+                    @*<td><img style="width:120px;height:70px" src="@course.Image" /></td>*@
+                    <td class="py-3" style="width:150px">
+                        <img style="width:120px;height:70px" src="Images/Course/@course.Image" />
+                    </td>
+                    <td class="py-3 w-50">
+                        <p class="fw-bold p-0 m-0"> @course.Title</p>
+                        <p style="font-size:13px;color:#1c1d1f;" class="p-0 m-0"> @course.Description</p>
+                        <div class="py-1">
+                            <span style="background-color:#acd2cc; color: #113731; font-size:13px;padding:2px 7px;font-weight:bold">Updated Recently</span>
+                            <span style="color:#b4690e; padding-left:5px">@course.Rating</span>
+                            <span class="rating">
+                                <span class="stars">
+                                 @for (int i = 1; i <=5 ; i++)
+                                    {
+                                        if (i <= course.Rating)
+                                        {
+                                            
+                                            <span class="empty-stars"></span>
+                                        }
+                                        else
+                                        {
+                                            
+                                            <span class="full-stars"></span>
+                                        }
+                                    }
+                                </span>
+                           </span>
+                        </div>
+
+                    </td>
+                    <td class="py-3 fw-bold fs-5">@course.Price E£</td>
+                    <td class="py-3">
+                        <a asp-action="Delete" asp-controller="Cart" asp-route-courseId="@course.Id" class="text-decoration-none" style="color:#acd2cc">Remove</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        
+        <div class="my-4">
+            <p style="font-weight:bold; font-size:25px;"> <span style="color:#6a6f73; font-size:20px;">Total:</span> @balance E£</p>
+            <form asp-action="Charge" asp-controller="Payment" asp-route-balance="@balance" class="d-inline-block">
+                <script src="//checkout.stripe.com/v2/checkout.js"
+                        class="stripe-button"
+                        data-key="@Stripe.Value.Publishablekey"
+                        data-locale="auto"
+                        data-description="Sample Charge"></script>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+<style>
+    .rating {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        display:inline-block;
+    }
+
+    .stars {
+        display: inline-block;
+        position: relative;
+        margin-right: 10px;
+        width: 85px;
+        height: 26px;
+    }
+
+    .empty-stars,
+    .full-stars {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .empty-stars {
+        z-index: 1;
+        margin-top: 8px
+    }
+
+    .full-stars {
+        z-index: 2;
+        margin-top:8px
+    }
+
+        .empty-stars:before,
+        .full-stars:before {
+            content: "\2606\2606\2606\2606\2606";
+            color: #ccc;
+        }
+
+        .full-stars:before {
+            content: "\2605\2605\2605\2605\2605";
+            color: #e59819 ;
+            width: calc(100% * var(--rating) / 5);
+            overflow: hidden;
+        }
+
+    .num-ratings {
+        color: #999;
+    }
+
+
+</style>
